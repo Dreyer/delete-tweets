@@ -15,8 +15,10 @@ class TweetDestroyer(object):
 
     def destroy(self, tweet_id):
         try:
-            log(tweet_id, "delete tweet")
-            if not self.dry_run:
+            if self.dry_run:
+                log(tweet_id, 'Deleted Tweet (dry-run)')
+            else:
+                log(tweet_id, 'Deleted Tweet')
                 self.twitter_api.DestroyStatus(tweet_id)
         except twitter.TwitterError as err:
             log(tweet_id, "Exception: %s\n" % err.message)
