@@ -30,10 +30,6 @@ def main():
     parser.add_argument("--dry-run", dest="dry_run", action="store_true", default=False)
     parser.add_argument('--version', action='version', version='%(prog)s ' + __version__)
 
-    # legacy options
-    parser.add_argument("-d", dest="until_date", help=argparse.SUPPRESS)
-    parser.add_argument("-r", dest="restrict", choices=["reply", "retweet"], help=argparse.SUPPRESS)
-
     args = parser.parse_args()
 
     if not ("TWITTER_CONSUMER_KEY" in os.environ and
@@ -43,18 +39,7 @@ def main():
         sys.stderr.write("Twitter API credentials not set.\n")
         exit(1)
 
-    filters = []
-
-    if args.restrict == "reply":
-        filters.append("replies")
-    elif args.restrict == "retweet":
-        filters.append("retweets")
-
-    for f in args.filters:
-        if f not in filters:
-            filters.append(f)
-
-    deletetweets.delete(args.file, args.since_date, args.until_date, filters, args.spare_ids,
+    deletetweets.delete(args.file, args.since_date, args.until_date, args.filters, args.spare_ids,
                         args.min_likes, args.min_retweets, args.dry_run)
 
 
