@@ -1,29 +1,22 @@
 # delete-tweets
 
-![](https://github.com/koenrh/delete-tweets/workflows/build/badge.svg)
-[![PyPI version](https://badge.fury.io/py/delete-tweets.svg)](https://badge.fury.io/py/delete-tweets)
+This is a simple script that enables you to delete tweets from your timeline. There are  third-party services that allow you to delete tweets, but they will not allow you to delete tweets beyond the infamous [3,200 tweet limit](https://web.archive.org/web/20131019125213/https://dev.twitter.com/discussions/276).
 
-This is a simple script that helps you delete tweets (or just replies or retweets)
-from your timeline. There are quite a few third-party services that allow you
-to delete tweets, but these very likely will not allow you to delete tweets beyond
-the infamous [3,200 tweet limit](https://web.archive.org/web/20131019125213/https://dev.twitter.com/discussions/276).
+_Credit to [@koenrh](koenrh/delete-tweets) for the original project._
 
 ## Prerequisites
 
-Unfortunately, as of late 2018, you are required to have a Twitter Developer account
-in order to create a Twitter app.
+**Note:** As of late 2018, you are required to have a Twitter Developer account in order to create a Twitter app.
 
 ### Apply for a Twitter Developer account
 
-1. [Create a Twitter Developer account](https://developer.twitter.com/en/apply):
-    1. **User profile**: Use your current Twitter @username.
-    1. **Account details**: Select *I am requesting access for my own personal use*,
-      set your 'Account name' to your @username, and select your 'Primary country
-      of operation.
-    1. **Use case details**: select 'Other', and explain in at least 300 words that
-      you want to create an app to semi-automatically clean up your own tweets.
-    1. **Terms of service**: Read and accept the terms.
-    1. **Email verification**: Confirm your email address.
+1. [Create a Twitter Developer account](https://developer.twitter.com/en/apply): You will need to provide details of your use case:
+   1. **User profile**: Use your current Twitter @username.
+   1. **Account details**: Select *I am requesting access for my own personal use*, set your 'Account name' to your @username, and select your 'Primary country of operation.
+   1. **Use case details**: select 'Other', and explain in at least 300 words that
+   you want to create an app to semi-automatically clean up your own tweets.
+   1. **Terms of service**: Read and accept the terms.
+   1. **Email verification**: Confirm your email address.
 1. Now wait for your Twitter Developer account to be reviewed and approved.
 
 ### Create a Twitter app
@@ -38,19 +31,14 @@ in order to create a Twitter app.
 1. Click the 'Details' button next to your newly created app.
 1. Click the 'Keys and tokens' tab, and find your keys, secret keys and access tokens.
 1. Now you need to make these keys and tokens available to your shell environment.
-  Assuming you are using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)):
 
-:warning: Before you continue, you should be aware that most shells record user
-input (and thus secrets) into a history file. In Bash you could prevent this by
-prepending your command with a _single space_ (requires `$HISTCONTROL` to be set
-to `ignorespace` or `ignoreboth`).
 
-```bash
-export TWITTER_CONSUMER_KEY="your_consumer_key"
-export TWITTER_CONSUMER_SECRET="your_consumer_secret"
-export TWITTER_ACCESS_TOKEN="your_access_token"
-export TWITTER_ACCESS_TOKEN_SECRET="your_access_token_secret"
-```
+### Setup your credentials
+
+1. Create a new `.env` file in the root of the project
+2. Use the `.env-template` as a guide.
+3. Replace the key, secrets and token with the values from Twitter.
+
 
 ### Get your tweet archive
 
@@ -63,12 +51,33 @@ export TWITTER_ACCESS_TOKEN_SECRET="your_access_token_secret"
 
 ## Getting started
 
-### Installation
+### Pre-requisites
 
-Install the tool using [`pip`](https://pip.pypa.io/).
+You will need the following:
+
+1. `pyenv` to install the correct version of Python.
+1. `virtualenv` to create isolated Python environment.
+
+### Setup local development
+
+Install the required version of Python and setup a new virtual environment.
+```bash
+$ pyenv install
+$ virtualenv .venv --prompt=delete-tweets
+$ source .venv/bin/activate
+(delete-tweets) $
+```
+
+Once you're in your isolated Python environment, you can upgrade and install dependencies.
 
 ```bash
-python3 -m pip install delete-tweets
+pip install --upgrade pip
+pip install -r requirements-dev.txt
+```
+You can then run the linter and unit tests:
+```bash
+flake8
+pytest
 ```
 
 ### Usage
