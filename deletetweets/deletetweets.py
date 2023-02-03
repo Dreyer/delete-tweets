@@ -5,7 +5,7 @@ import json
 
 import twitter
 from datetime import datetime
-from dateutil import parser
+from deletetweets.utils import parse_date, log
 
 
 class TweetDestroyer(object):
@@ -15,18 +15,18 @@ class TweetDestroyer(object):
 
     def destroy(self, tweet_id):
         try:
-            print("delete tweet %s" % tweet_id)
+            log(tweet_id, "delete tweet")
             if not self.dry_run:
                 self.twitter_api.DestroyStatus(tweet_id)
         except twitter.TwitterError as err:
-            print("Exception: %s\n" % err.message)
+            log(tweet_id, "Exception: %s\n" % err.message)
 
 
 class TweetReader(object):
     def __init__(self, reader, since_date=None, until_date=None, filters=[], spare=[], min_likes=0, min_retweets=0):
         self.reader = reader
-        self.since_date = datetime.min if since_date is None else parser.parse(since_date, ignoretz=True)
-        self.until_date = datetime.now() if until_date is None else parser.parse(until_date, ignoretz=True)
+        self.since_date = datetime.min if since_date is None else parse_date(since_date)
+        self.until_date = datetime.now() if until_date is None else parse_date(until_date)
         self.filters = filters
         self.spare = spare
         self.min_likes = 0 if min_likes is None else min_likes
@@ -35,7 +35,7 @@ class TweetReader(object):
     def read(self):
         for row in self.reader:
             if row["tweet"].get("created_at", "") != "":
-                tweet_date = parser.parse(row["tweet"]["created_at"], ignoretz=True)
+                tweet_date = parse_date(row["tweet"]["created_at"])
                 if tweet_date >= self.until_date or tweet_date <= self.since_date:
                     continue
 
