@@ -1,0 +1,5 @@
+[flake8]
+exclude = .git,__pycache__,.env,.venv,twitter-archive
+max-line-length = 125
+statistics = True
+count = True
