@@ -47,7 +47,8 @@ _Credit to [@koenrh](koenrh/delete-tweets) for the original project._
 1. Re-enter your password
 1. Click 'Request data', and wait for the email to arrive
 1. Follow the link in the email to download your Tweet data
-1. Unpack the archive
+1. Unpack the archive to `twitter-archive` folder
+1. The `tweets.js` should be discoverable at: `./twitter-archive/data/tweets.js`
 
 ## Getting started
 
@@ -85,14 +86,27 @@ pytest
 Delete any tweet from _before_ January 1, 2018:
 
 ```bash
-delete-tweets --until 2018-01-01 tweet.js
+python -m deletetweets --until 2018-01-01
 ```
 
 Or only delete all retweets:
 
 ```bash
-delete-tweets --filter retweets tweet.js
+python -m deletetweets --filter retweets
 ```
+
+Delete **ALL** tweets with a dry-run (to avoid a [footgun](https://en.wiktionary.org/wiki/footgun)):
+
+```bash
+python -m deletetweets --dry-run
+```
+
+Delete **ALL** tweets from a specific file with a dry-run:
+
+```bash
+python -m deletetweets --dry-run --file /foo/bar/tweet.js
+```
+
 
 ### Spare tweets
 
@@ -100,11 +114,11 @@ You can optionally spare tweets by passing their `id_str`, setting a minimum
 amount of likes or retweets:
 
 ```bash
-delete-tweets --until 2018-01-01 tweet.js --spare-ids 21235434 23498723 23498723
+python -m deletetweets --until 2018-01-01 --spare-ids 21235434 23498723 23498723
 ```
 
 Spare tweets that have at least 10 likes, or 5 retweets:
 
 ```bash
-delete-tweets --until 2018-01-01 tweet.js --spare-min-likes 10 --spare-min-retweets 5
+python -m deletetweets --until 2018-01-01 --spare-min-likes 10 --spare-min-retweets 5
 ```

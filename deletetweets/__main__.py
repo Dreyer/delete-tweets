@@ -19,8 +19,8 @@ def main():
     parser.add_argument("--until", dest="until_date", help="Delete tweets until this date")
     parser.add_argument("--filter", action="append", dest="filters", choices=["replies", "retweets"],
                         help="Filter replies or retweets", default=[])
-    parser.add_argument("file", help="Path to the tweet.js file",
-                        type=str)
+    parser.add_argument("--file", help="Path to the tweet.js file",
+                        type=str, default="twitter-archive/data/tweets.js")
     parser.add_argument("--spare-ids", dest="spare_ids", help="A list of tweet ids to spare",
                         type=str, nargs="+", default=[])
     parser.add_argument("--spare-min-likes", dest="min_likes",
@@ -37,6 +37,10 @@ def main():
             "TWITTER_ACCESS_TOKEN" in os.environ and
             "TWITTER_ACCESS_TOKEN_SECRET" in os.environ):
         sys.stderr.write("Twitter API credentials not set.\n")
+        exit(1)
+
+    if not os.path.isfile(args.file):
+        sys.stderr.write("File for tweet.js not found at %s.\n" % args.file)
         exit(1)
 
     deletetweets.delete(args.file, args.since_date, args.until_date, args.filters, args.spare_ids,

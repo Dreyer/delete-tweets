@@ -1,0 +1,13 @@
+# This is where you want to unzip your Twitter archive here.
+#
+#   twitter-archive/
+#   ├─ assets/
+#   ├─ data/
+#   |  ├─ (many other files)
+#   |  ├─ tweets.js
+#   ├─ Your archive.html
+#
+# We will ignore everything in this directory.
+*
+# Except this file.
+!.gitignore
