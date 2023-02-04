@@ -1,4 +1,4 @@
-import unittest
+from unittest import TestCase
 
 from deletetweets.deletetweets import TweetReader, TweetDestroyer
 
@@ -32,7 +32,7 @@ class FakeReader(object):
         return self.__next__()
 
 
-class TestDeleteTweets(unittest.TestCase):
+class TestDeleteTweets(TestCase):
     def test_tweet_destroyer_dry_run(self):
         tweets = [{"tweet": {"id_str": "42", "full_text": ""}},
                   {"tweet": {"id_str": "43", "full_text": ""}},
@@ -174,7 +174,3 @@ class TestDeleteTweets(unittest.TestCase):
             actual.append(val)
 
         self.assertEqual(len(expected), len(actual))
-
-
-if __name__ == "__main__":
-    unittest.main()
