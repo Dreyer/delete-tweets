@@ -34,7 +34,7 @@ class TweetReader(object):
         self.min_likes = 0 if params.min_likes is None else params.min_likes
         self.min_retweets = 0 if params.min_retweets is None else params.min_retweets
 
-    def read(self):
+    def process(self):
         for row in self.rows:
             if row["tweet"].get("created_at", "") != "":
                 tweet_date = parse_date(row["tweet"]["created_at"])
@@ -73,7 +73,9 @@ def delete(params):
         data_json = data_raw[offset:]
 
         rows = json.loads(data_json)
-        for row in TweetReader(rows, params).read():
+        reader = TweetReader(rows, params)
+
+        for row in reader.process():
             destroyer.destroy(row["tweet"]["id_str"])
             count += 1
 

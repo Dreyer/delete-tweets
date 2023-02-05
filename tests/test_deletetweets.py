@@ -62,7 +62,7 @@ class TestDeleteTweets(TestCase):
         rows = FakeReader(mock_tweets)
         tweets = TweetReader(rows, mock_args)
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             destroyer.destroy(val["tweet"]["id_str"])
 
         self.assertEqual(len(api.destroyed_tweets), 0)
@@ -80,7 +80,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "42"}}, {"tweet": {"id_str": "44"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -99,7 +99,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "14"}}, {"tweet": {"id_str": "18"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -116,7 +116,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "21"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -133,7 +133,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "24"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -149,7 +149,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "21"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -167,7 +167,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "21"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -185,7 +185,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "21"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -203,7 +203,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "21"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
@@ -219,7 +219,7 @@ class TestDeleteTweets(TestCase):
         expected = [{"tweet": {"id_str": "21"}}]
         actual = []
 
-        for idx, val in enumerate(tweets.read()):
+        for idx, val in enumerate(tweets.process()):
             self.assertEqual(expected[idx]["tweet"]["id_str"], val["tweet"]["id_str"])
             actual.append(val)
 
