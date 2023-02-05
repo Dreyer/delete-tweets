@@ -15,8 +15,8 @@ __version__ = "1.0.6"
 
 def main():
     parser = argparse.ArgumentParser(description="Delete old tweets.")
-    parser.add_argument("--since", dest="since_date", help="Delete tweets since this date")
-    parser.add_argument("--until", dest="until_date", help="Delete tweets until this date")
+    parser.add_argument("--since", dest="since_date", help="Delete tweets since this date", default=None)
+    parser.add_argument("--until", dest="until_date", help="Delete tweets until this date", default=None)
     parser.add_argument("--filter", action="append", dest="filters", choices=["replies", "retweets"],
                         help="Filter replies or retweets", default=[])
     parser.add_argument("--file", help="Path to the tweet.js file",
@@ -43,8 +43,7 @@ def main():
         sys.stderr.write("File for tweet.js not found at %s.\n" % args.file)
         exit(1)
 
-    deletetweets.delete(args.file, args.since_date, args.until_date, args.filters, args.spare_ids,
-                        args.min_likes, args.min_retweets, args.dry_run)
+    deletetweets.delete(args)
 
 
 if __name__ == "__main__":

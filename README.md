@@ -75,7 +75,9 @@ Once you're in your isolated Python environment, you can upgrade and install dep
 pip install --upgrade pip
 pip install -r requirements-dev.txt
 ```
+
 You can then run the linter and unit tests:
+
 ```bash
 flake8
 pytest
