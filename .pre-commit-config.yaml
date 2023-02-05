@@ -1,0 +1,21 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.0.1
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: local
+    hooks:
+    -   id: Flake8
+        name: Run Linting
+        entry: flake8
+        language: system
+        pass_filenames: false
+-   repo: local
+    hooks:
+    -   id: pytest
+        name: Run Tests
+        entry: pytest
+        language: system
+        pass_filenames: false
