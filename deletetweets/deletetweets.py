@@ -25,13 +25,13 @@ class TweetDestroyer():
 
 
 def delete(params):
-    with io.open(params.file, mode="r", encoding="utf-8") as fp:
+    with io.open(params.file, mode='r', encoding='utf-8') as fp:
         count = 0
 
-        api = TwitterAPI(consumer_key=os.environ["TWITTER_CONSUMER_KEY"],
-                         consumer_secret=os.environ["TWITTER_CONSUMER_SECRET"],
-                         access_token_key=os.environ["TWITTER_ACCESS_TOKEN"],
-                         access_token_secret=os.environ["TWITTER_ACCESS_TOKEN_SECRET"],
+        api = TwitterAPI(consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
+                         consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
+                         access_token_key=os.environ['TWITTER_ACCESS_TOKEN'],
+                         access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'],
                          sleep_on_rate_limit=True)
         destroyer = TweetDestroyer(api, params.dry_run)
 
