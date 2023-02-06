@@ -25,6 +25,8 @@ def main():
     parser.add_argument('--spare-min-retweets', dest='min_retweets',
                         help='Spare tweets with more than the provided retweets', type=int, default=0)
     parser.add_argument('--dry-run', dest='dry_run', action='store_true', default=False)
+    parser.add_argument('--disable-cache', dest='disable_cache',
+                        help='Disable caching of tweets', action='store_true', default=False)
 
     args = parser.parse_args()
 

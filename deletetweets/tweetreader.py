@@ -14,6 +14,7 @@ class TweetReader():
         self.spare_ids = params.spare_ids
         self.min_likes = 0 if params.min_likes is None else params.min_likes
         self.min_retweets = 0 if params.min_retweets is None else params.min_retweets
+        self.disable_cache = params.disable_cache
 
         self.total = 0
         self.deleted = 0
@@ -23,6 +24,10 @@ class TweetReader():
         for row in self.rows:
             self.total += 1
             tweet = Tweet(row)
+
+            if not self.disable_cache and tweet.is_cached():
+                self.skipped += 1
+                continue
 
             if tweet.created_at >= self.until_date or tweet.created_at <= self.since_date:
                 self.skipped += 1

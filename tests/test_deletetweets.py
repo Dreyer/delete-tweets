@@ -8,12 +8,12 @@ class FakeArguments():
         self.since_date = None
         self.until_date = None
         self.filters = []
-        self.file = "test-tweet.js"
+        self.file = 'test-tweet.js'
         self.spare_ids = []
         self.min_likes = 0
         self.min_retweets = 0
         self.dry_run = False
-        self.version = "0.0.0"
+        self.disable_cache = False
 
         if len(overrides) > 0:
             for (param, value) in overrides.items():
@@ -26,7 +26,7 @@ class FakeTwitterApi():
 
     def DestroyStatus(self, tweet_id):
         self.destroyed_tweets.append(tweet_id)
-        print("Destroyed tweet %s" % tweet_id)
+        print('Destroyed tweet %s' % tweet_id)
 
 
 class FakeReader():

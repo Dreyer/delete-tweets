@@ -14,14 +14,16 @@ class TweetDestroyer():
         self.dry_run = dry_run
 
     def destroy(self, tweet_id):
+        result = None
         try:
             if self.dry_run:
                 log(tweet_id, 'Deleted Tweet (dry-run)')
             else:
                 log(tweet_id, 'Deleted Tweet')
-                self.twitter_api.DestroyStatus(tweet_id)
+                result = self.twitter_api.DestroyStatus(tweet_id)
         except TwitterError as err:
             log(tweet_id, "Exception: %s\n" % err.message)
+        return result
 
 
 def delete(params):
@@ -40,9 +42,14 @@ def delete(params):
         reader = TweetReader(rows, params)
 
         for tweet in reader.process():
-            destroyer.destroy(tweet.id_str)
-            if not params.dry_run:
-                reader.deleted += 1
+            result = destroyer.destroy(tweet.id_str)
+            if result is not None:
+                print(result)
+                sys.exit()
+                if not params.disable_cache:
+                    tweet.cache(result)
+                    print('cache it')
+            reader.deleted += 1
 
         print("Summary: Deleted %s of %s Tweets (Skipped: %s)\n" %
               (reader.deleted, reader.total, reader.skipped))
