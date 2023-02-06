@@ -5,7 +5,7 @@ import json
 
 from twitter import Api as TwitterAPI, TwitterError
 from deletetweets.utils import log
-from deletetweets.tweetreader import TweetReader
+from deletetweets.tweetreader import TweetReader, OFFSET
 
 
 class TweetDestroyer():
@@ -36,8 +36,7 @@ def delete(params):
         destroyer = TweetDestroyer(api, params.dry_run)
 
         data_raw = fp.read()
-        offset = len("window.YTD.tweets.part0 = ")-1
-        data_json = data_raw[offset:]
+        data_json = data_raw[OFFSET:]
 
         rows = json.loads(data_json)
         reader = TweetReader(rows, params)

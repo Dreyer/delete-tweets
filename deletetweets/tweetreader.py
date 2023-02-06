@@ -2,6 +2,8 @@ from datetime import datetime
 from deletetweets.utils import parse_date
 from deletetweets.tweet import Tweet
 
+OFFSET = len('window.YTD.tweets.part0 = ')-1
+
 
 class TweetReader():
     def __init__(self, rows, params):
