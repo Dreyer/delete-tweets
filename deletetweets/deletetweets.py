@@ -8,7 +8,7 @@ from datetime import datetime
 from deletetweets.utils import parse_date, log
 
 
-class TweetDestroyer(object):
+class TweetDestroyer():
     def __init__(self, twitter_api, dry_run=False):
         self.twitter_api = twitter_api
         self.dry_run = dry_run
@@ -53,7 +53,7 @@ class Tweet():
         return (threshold > 0 and value is not None and int(value) >= threshold)
 
 
-class TweetReader(object):
+class TweetReader():
     def __init__(self, rows, params):
         self.rows = rows
         self.since_date = datetime.min if params.since_date is None else parse_date(params.since_date)
