@@ -26,8 +26,6 @@ class TweetDestroyer():
 
 def delete(params):
     with io.open(params.file, mode='r', encoding='utf-8') as fp:
-        count = 0
-
         api = TwitterAPI(consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
                          consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
                          access_token_key=os.environ['TWITTER_ACCESS_TOKEN'],
@@ -43,8 +41,10 @@ def delete(params):
 
         for tweet in reader.process():
             destroyer.destroy(tweet.id_str)
-            count += 1
+            if not params.dry_run:
+                reader.deleted += 1
 
-        print("Number of deleted tweets: %s\n" % count)
+        print("Summary: Deleted %s of %s Tweets (Skipped: %s)\n" %
+              (reader.deleted, reader.total, reader.skipped))
 
     sys.exit()
